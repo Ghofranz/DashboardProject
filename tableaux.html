@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tables - My Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="global.css">
+  <link rel="stylesheet" href="tab.css">
+  
+  <style>
+   
+  </style>
+</head>
+<body>
+     <!-- Mobile Menu Toggle -->
+  <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" >
+      <path d="M3 12h18M3 6h18M3 18h18"/>
+    </svg>
+  </button>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="logo">📊</div>
+        <div class="brand__name">My Dashboard</div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__item" href="index.html">
+          <span class="nav__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="14" y="14" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </span>
+          Dashboard
+        </a>
+
+        <a class="nav__item active" href="tableaux.html">
+          <span class="nav__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M3 12h18M3 18h18"/>
+            </svg>
+          </span>
+          Tables
+        </a>
+        
+        <a class="nav__item" href="parametre.html">
+          <span class="nav__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="5" width="18" height="14" rx="2"/>
+              <path d="M3 10h18"/>
+            </svg>
+          </span>
+          Settings
+        </a>
+        
+        <a class="nav__item" href="statistiques.html">
+          <span class="nav__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M2 12l7-7v4h10a2 2 0 012 2v6a2 2 0 01-2 2H9v4l-7-7z"/>
+            </svg>
+          </span>
+          Statistics
+        </a>
+
+        <div class="nav__section">Account Pages</div>
+        
+        <a class="nav__item" href="profile.html">
+          <span class="nav__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M3 21a9 9 0 0118 0"/>
+            </svg>
+          </span>
+          Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="content">
+      <!-- PAGE HEADER -->
+      <div class="page-header-wrapper">
+        <header class="page-header">
+          <div class="crumbs">Pages / <span>Tables</span></div>
+          <h1 class="page-title">Data Tables</h1>
+
+          <div class="topbar__right">
+            <div class="search">
+              <input type="text" placeholder="Type here..." >
+            </div>
+            <a class="signin" href="#">Sign In</a>
+          </div>
+        </header>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        
+        <!-- Filter Bar -->
+<div class="filter-bar">
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Search orders..."
+  >
+  <select id="statusFilter">
+    <option value="all">All Statuses</option>
+    <option value="Delivered">Delivered</option>
+    <option value="Processing">Processing</option>
+    <option value="Pending">Pending</option>
+    <option value="Cancelled">Cancelled</option>
+  </select>
+  <button id="filterBtn" class="btn btn-primary">
+    <span style="margin-right: 8px;">⚡</span> Filter
+  </button>
+</div>
+
+
+        <!-- Orders Table -->
+        <div class="table-container">
+          <div style="padding: 24px 28px; border-bottom: 1px solid #f1f3f5;">
+            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: var(--text);">Recent Orders</h2>
+            <p style="margin: 4px 0 0; color: var(--muted); font-size: 14px;">Manage your recent customer orders</p>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" style="width: 16px; height: 16px; cursor: pointer;">
+                </th>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Product</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+  <!-- Rows will be injected dynamically -->
+</tbody>
+
+          </table>
+
+          <div class="pagination">
+  <div class="pagination-info" id="rowsInfo">
+    Showing 0–0 of 0
+  </div>
+  <div class="pagination-buttons">
+    <button class="page-btn" id="prevPage">Previous</button>
+
+    <!-- Ici on générera les numéros de page en JS -->
+    <div id="paginationPages"></div>
+
+    <button class="page-btn" id="nextPage">Next</button>
+  </div>
+</div>
+
+
+        </div>
+        
+      </div>
+   
+<!-- EDIT ORDER MODAL -->
+<div id="editOrderModal" class="modal">
+  <div class="modal-content">
+    <h2>Edit Order</h2>
+
+    <label>Customer</label>
+    <input id="editCustomer" type="text">
+
+    <label>Product</label>
+    <input id="editProduct" type="text">
+
+    <label>Amount</label>
+    <input id="editAmount" type="number" min="0">
+
+    <label>Status</label>
+    <select id="editStatus">
+      <option value="Delivered">Delivered</option>
+      <option value="Processing">Processing</option>
+      <option value="Pending">Pending</option>
+      <option value="Cancelled">Cancelled</option>
+    </select>
+
+    <label>Date</label>
+    <input id="editDate" type="date">
+
+    <div class="modal-buttons">
+      <button id="cancelEdit" class="btn">Cancel</button>
+      <button id="saveEdit" class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</div>
+
+
+    </main>
+  </div>
+
+  <script>
+    // Active navigation highlight
+    document.addEventListener('DOMContentLoaded', function() {
+      const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+      const navItems = document.querySelectorAll('.nav__item');
+      
+      navItems.forEach(item => {
+        item.classList.remove('active');
+        if (item.getAttribute('href') === currentPage) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const sidebar = document.getElementById('sidebar');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+  function toggleMenu() {
+    sidebar.classList.toggle('open');
+    sidebarOverlay.classList.toggle('show');
+    document.body.classList.toggle('menu-open'); // ✅ IMPORTANT
+  }
+
+  function closeMenu() {
+    sidebar.classList.remove('open');
+    sidebarOverlay.classList.remove('show');
+    document.body.classList.remove('menu-open'); // ✅ IMPORTANT
+  }
+
+  mobileMenuToggle.addEventListener('click', toggleMenu);
+  sidebarOverlay.addEventListener('click', closeMenu);
+});
+</script>
+
+<script type="module" src="tableaux.js"></script>
+
+
+
+</body>
+</html>
