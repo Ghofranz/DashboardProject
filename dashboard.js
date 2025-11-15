@@ -18,7 +18,7 @@ function updateDashboard() {
 
   const lastOrder = orders[orders.length - 1];
 
-  // 1) Carte "TODAY'S MONEY" = somme des montants
+  // 1) Carte "TODAY'S MONEY"
   const moneyCardValue = document.querySelector(
     ".stats-grid .stat-card:nth-child(1) .stat-value"
   );
@@ -27,7 +27,7 @@ function updateDashboard() {
     moneyCardValue.textContent = "$" + total.toLocaleString();
   }
 
-  // 2) Carte "TODAY'S USERS" = nombre de commandes (simple pour l'instant)
+  // 2) Carte "TODAY'S USERS"
   const ordersCardValue = document.querySelector(
     ".stats-grid .stat-card:nth-child(2) .stat-value"
   );
@@ -35,7 +35,7 @@ function updateDashboard() {
     ordersCardValue.textContent = orders.length.toLocaleString();
   }
 
-  // 3) Carte "NEW CLIENTS" = nombre de clients uniques
+  // 3) Carte "NEW CLIENTS"
   const newClientsValue = document.querySelector(
     ".stats-grid .stat-card:nth-child(3) .stat-value"
   );
@@ -51,6 +51,9 @@ function updateDashboard() {
   const activityAmount = document.querySelector(
     ".activity-list .activity-item .activity-amount"
   );
+  const activityTime = document.querySelector(
+    ".activity-list .activity-item .activity-time"
+  );
 
   if (activityTitle) {
     activityTitle.textContent = `New order #${lastOrder.id}`;
@@ -59,6 +62,53 @@ function updateDashboard() {
     const amount = Number(lastOrder.amount || 0);
     activityAmount.textContent = `+$${amount.toLocaleString()}`;
   }
+  if (activityTime) {
+    activityTime.textContent = formatRelativeTime(lastOrder);
+  }
+}
+
+//mettre à jour la date de la derniere commande
+function formatRelativeTime(order) {
+  const now = new Date();
+
+  // On prend createdAt si dispo, sinon on retombe sur date (jour)
+  let baseDate = null;
+
+  if (order.createdAt) {
+    baseDate = new Date(order.createdAt);
+  } else if (order.date) {
+    baseDate = new Date(order.date);
+  }
+
+  if (!baseDate || isNaN(baseDate.getTime())) {
+    return "Just now";
+  }
+
+  const diffMs = now - baseDate;
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+  const diffHour = Math.floor(diffMin / 60);
+  const diffDay = Math.floor(diffHour / 24);
+
+  if (diffSec < 60) {
+    return "Just now";
+  } else if (diffMin < 60) {
+    return `${diffMin} minute${diffMin > 1 ? "s" : ""} ago`;
+  } else if (diffHour < 24) {
+    return `${diffHour} hour${diffHour > 1 ? "s" : ""} ago`;
+  } else {
+    return `${diffDay} day${diffDay > 1 ? "s" : ""} ago`;
+  }
+}
+// Gère le bouton de synchronisation
+function initSyncButton() {
+  const syncBtn = document.getElementById("syncBtn");
+  if (!syncBtn) return;
+
+  syncBtn.addEventListener("click", () => {
+    // On recalcule les stats et le texte "x minutes ago"
+    updateDashboard();
+  });
 }
 
 // Gère le modal "New Order" et l’ajout d’une commande
@@ -102,6 +152,7 @@ function initNewOrderModal() {
       status: status,
       date: date,
       avatar: (customer || "User").replace(/\s+/g, "_"),
+      createdAt: new Date().toISOString()
     };
 
     addOrder(newOrder);
@@ -124,4 +175,5 @@ document.addEventListener("DOMContentLoaded", () => {
   seedDemoOrdersIfEmpty();
   updateDashboard();     // met à jour les cartes au chargement
   initNewOrderModal();   // branche le modal "New Order"
+  initSyncButton();
 });
