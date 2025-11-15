@@ -87,4 +87,11 @@ Chart.js — graphical visualizations
 LocalStorage API — persistent data
 
 📸 Screenshots
-<img width="100%" alt="Dashboard Screenshot" src="https://github.com/user-attachments/assets/fe0ab591-7eca-412d-93d4-bba77825891c" /> <img width="100%" alt="Tables Screenshot" src="https://github.com/user-attachments/assets/833f730a-3211-48ba-88ec-b7394d821684" /> <img width="100%" alt="Settings Screenshot" src="https://github.com/user-attachments/assets/b3bf268e-ab33-4b3b-ba78-f4a91ff706af" /><img width="100%" alt="Statistics Screenshot" src="https://github.com/user-attachments/assets/6a9a994d-a6cd-44c5-ac4b-cde29e8789b0" /> 
+<img width="1842" height="951" alt="image" src="https://github.com/user-attachments/assets/3b947831-c33f-4b70-942a-907fc56efa12" />
+<img width="1839" height="949" alt="image" src="https://github.com/user-attachments/assets/a61c0cf0-6f5b-4ffd-a412-ae5cca1b6ab0" />
+<img width="1841" height="948" alt="image" src="https://github.com/user-attachments/assets/e626e8f7-cd90-4038-83f6-df537061d671" />
+<img width="1396" height="933" alt="image" src="https://github.com/user-attachments/assets/e7759df4-dd9e-4b3a-8c06-300e055d1a26" />
+
+
+
+
